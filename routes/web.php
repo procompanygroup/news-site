@@ -30,4 +30,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware(['auth', 'verified'])-> prefix('cpanel')->group(function () {
+    // /cpanel
+  
+        
+        Route::get('', [AdminController::class, 'index']);
+   });
+   
 require __DIR__.'/auth.php';

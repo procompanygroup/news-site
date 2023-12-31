@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+ 
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -11,16 +11,23 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
-    {
-        if(view()->exists($id)){
-            return view($id);
-        }
-        else
-        {
-            return view('404');
-        }
+    // public function index($id)
+    // {
+    //     if(view()->exists($id)){
+    //         return view($id);
+    //     }
+    //     else
+    //     {
+    //         return view('404');
+    //     }
 
+    //  //   return view($id);
+    // }
+    public function index()
+    {
+         
+            return view('admin.index');
+       
      //   return view($id);
     }
 
