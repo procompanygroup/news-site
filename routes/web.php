@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use     App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +36,10 @@ Route::middleware(['auth', 'verified'])-> prefix('cpanel')->group(function () {
   
         
         Route::get('', [AdminController::class, 'index']);
+        Route:: prefix('category')->group(function () {
+            Route::get('show', [CategoryController::class, 'index']);
+        
+        });
    });
    
 require __DIR__.'/auth.php';
