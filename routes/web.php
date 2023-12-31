@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/{page}', [AdminController::class, 'index']);
+//Route::get('/{page}', [AdminController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
