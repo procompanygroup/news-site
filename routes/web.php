@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,17 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('register', function () {
-    return view('site.user.register')->name('register');
-});
+Route::get('/{page}', [AdminController::class, 'index']);
 
-Route::get('dashboard', function () {
+Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard');
-
-Route::get('/home', function () {
-    return view('home');
-})->middleware(['auth', 'verified'])->name('home');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
