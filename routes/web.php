@@ -36,10 +36,12 @@ Route::middleware(['auth', 'verified'])-> prefix('cpanel')->group(function () {
   
         
         Route::get('', [AdminController::class, 'index']);
+        //   /category
         Route:: prefix('category')->group(function () {
             Route::get('show', [CategoryController::class, 'index']);
-        
+            Route::get('add', [CategoryController::class, 'create']);
         });
+        
    });
    
 require __DIR__.'/auth.php';

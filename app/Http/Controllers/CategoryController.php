@@ -12,6 +12,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $list="";
        return view('admin.category.show');
     }
 
