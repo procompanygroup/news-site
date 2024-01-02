@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('categories_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id');
-            $table->foreignId('user_id');
+            $table->foreignId('category_id')->nullable();
+            $table->foreignId('user_id')->nullable();
             $table->integer('create_user_id')->nullable();
             $table->timestamps();
         });

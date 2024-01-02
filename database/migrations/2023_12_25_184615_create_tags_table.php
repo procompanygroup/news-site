@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('tag_name')->nullable();
             $table->text('tag_description')->nullable();
-            $table->foreignId('media_id');
+            $table->foreignId('media_id')->nullable();
             $table->timestamps();
         });
     }

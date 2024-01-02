@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Models\News;
 
 class NewsController extends Controller
@@ -12,7 +14,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        //
+        $news=News::all();
+        return view('admin.news.show', compact('news'));
     }
 
     /**
@@ -20,16 +23,16 @@ class NewsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.news.add');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse 
     {
-        $validated = $request->validate([
-            'title' => 'required|unique:news',
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|unique:news|max:255',
             'content' => 'required',
         ]);
 
@@ -37,6 +40,9 @@ class NewsController extends Controller
             'title'=>$request->title,
             'content'=>$request->content,
         ]);
+
+        session()->flash('Add', 'تم إضافة الخبر بنجاح');
+        return back();
     }
 
     /**

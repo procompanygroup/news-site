@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('admin.layouts.master')
 
 @section('css')
 @endsection
@@ -41,15 +41,58 @@
 @endsection
 
 @section('content')
+
+
+@if (session()->has('edit'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+	<strong>{{ session()->get('edit') }}</strong>
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+@endif
+
+
 				<!-- row -->
 				<div class="row">
 
+					<div class="col-lg-12 col-md-12">
+						<div class="card">
+							<div class="card-body">
+			
+								<form action="{{ route('category.update', ['id' => $category->id])) }}" method="post" autocomplete="off">
+									{{ method_field('patch') }}
+									{{ csrf_field() }}
+
+						
+
+									<div class="row">
+										<div class="col">
+											<label for="inputName" class="control-label">اسم التصنيف</label>
+											<input type="hidden" name="id" value="{{ $category->id }}">
+											<input type="text" class="form-control" id="inputName" name="category_name"
+												title="يرجى إدخال عنوان التصنيف" value="{{ $category->category_name }}" required>
+										</div><br>
+			
+									<div class="row">
+										<div class="col">
+											<label for="exampleTextarea">الوصف</label>
+											<textarea class="form-control" id="exampleTextarea" name="category_description" rows="3">
+											{{ $category->category_description }}</textarea>
+										</div>
+									</div><br>
+			
+									<div class="d-flex justify-content-center">
+										<button type="submit" class="btn btn-primary">حفظ البيانات</button>
+									</div>
+			
+								</form>
+							</div>
+						</div>
+					</div>
+
 				</div>
 				<!-- row closed -->
-			</div>
-			<!-- Container closed -->
-		</div>
-		<!-- main-content closed -->
 @endsection
 
 @section('js')

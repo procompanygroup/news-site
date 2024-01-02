@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->text('content')->nullable();
             $table->integer('composer_id')->nullable();
-            $table->foreignId('category_id');
+            $table->foreignId('category_id')->nullable();
             $table->string('status')->nullable();
-            $table->foreignId('media_id');
+            $table->foreignId('media_id')->nullable();
             $table->timestamps();
         });
     }

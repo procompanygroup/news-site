@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('create_user_id')->nullable();
             $table->integer('update_user_id')->nullable();
             $table->integer('parent_id')->nullable();
-            $table->foreignId('media_id');
+            $table->foreignId('media_id')->nullable();
             $table->timestamps();
         });
     }

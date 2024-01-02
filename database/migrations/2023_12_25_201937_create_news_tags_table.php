@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('news_tags', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tag_id');
-            $table->foreignId('news_id');
+            $table->foreignId('tag_id')->nullable();
+            $table->foreignId('news_id')->nullable();
             $table->integer('create_user_id')->nullable();
             $table->date('date')->nullable();
             $table->timestamps();
