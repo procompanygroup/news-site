@@ -23,12 +23,8 @@ class CategoryController extends Controller
      */
     public function create(Request $request)
     {
-<<<<<<< HEAD
         $parents=Category::all();
         return view('admin.category.add', compact('parents'));
-=======
-        return view('admin.category.add');
->>>>>>> de2062e79b5bc27240556b6b6963cf3d2e77b4a7
     }
 
     /**
@@ -65,19 +61,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-<<<<<<< HEAD
         $parents=Category::all();
         $category = Category::findOrFail($id);
         return view('admin.category.edit', compact('category', 'parents'));
-=======
-        // $id = $request->id;
-        // $category = Category::where('id', $id)->first();
-
-        $category = Category::findOrFail($id);
-
-        // $category = Category::where('id', $id)->first();
-        return view('admin.category.edit', compact('category'));
->>>>>>> de2062e79b5bc27240556b6b6963cf3d2e77b4a7
     }
 
     /**
@@ -97,31 +83,16 @@ class CategoryController extends Controller
 
         session()->flash('Edit', 'تم تعديل التصنيف بنجاح');
         return back();
-<<<<<<< HEAD
-=======
         */
->>>>>>> de2062e79b5bc27240556b6b6963cf3d2e77b4a7
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy( $id)
     {
-<<<<<<< HEAD
         Category::findorFail($id)->first()->delete();
         session()->flash('delete', 'تم حذف التصنيف بنجاح');
         return back();
-=======
-        $id = $request->id;
-        Category::findorFail($id)->delete();
-
-        // $id = $request->id;
-        // $category = Category::where('id', $id)->delete();
-
-        session()->flash('delete', 'تم حذف التصنيف بنجاح');
-        return back();  
-
->>>>>>> de2062e79b5bc27240556b6b6963cf3d2e77b4a7
     }
 }
