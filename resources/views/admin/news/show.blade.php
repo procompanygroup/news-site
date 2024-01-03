@@ -47,10 +47,9 @@
 						<div class="card">
 							<div class="card-header pb-0">
 								<div class="d-flex justify-content-between">
-									<h4 class="card-title mg-b-0">قائمة الأخبار</h4>
+									<h4 class="card-title mg-b-0">جميع الأخبار</h4>
 									<i class="mdi mdi-dots-horizontal text-gray"></i>
 								</div>
-								{{-- <p class="tx-12 tx-gray-500 mb-2">Example of Valex Simple Table. <a href="">Learn more</a></p> --}}
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
@@ -75,10 +74,13 @@
 												<td>{{$new->category_id}}</td>
 												<td>{{$new->composer_id}}</td>
 												<td>{{$new->status}}</td>
-												{{-- <td>
-													<a href="{{route('admin.news.edit',$new->id)}}"><i
-														class="fa fa-pencil m-r-5"></i>تعديل</a>
-												</td> --}}
+												<td>
+													<a class="btn btn-sm btn-info" href="{{ route('news.edit', $new->id) }}" title="تعديل"><i class="las la-pen"></i></a>
+
+													<a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                                	data-id="{{ $new->id }}" data-title="{{ $new->title }}" data-toggle="modal"
+                                                	href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
+												</td>
 											</tr>
 											@endforeach
 										</tbody>
@@ -90,10 +92,33 @@
 					<!--/div-->
 				</div>
 				<!-- row closed -->
+
+
+<!-- delete -->
+<div class="modal" id="modaldemo9">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content modal-content-demo">
+			<div class="modal-header">
+				<h6 class="modal-title">حذف الخبر</h6><button aria-label="Close" class="close" data-dismiss="modal"
+					type="button"><span aria-hidden="true">&times;</span></button>
 			</div>
-			<!-- Container closed -->
+			<form action={{ route('news.delete', $new->id) }} method="post">
+				{{method_field('delete')}}
+				{{csrf_field()}}
+				<div class="modal-body">
+					<p>هل أنت متأكد من عملية الحذف؟</p><br>
+					<input type="hidden" name="id" id="id">
+					<input class="form-control" name="title" id="title" type="text" readonly>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+					<button type="submit" class="btn btn-danger">تأكيد</button>
+				</div>
 		</div>
-		<!-- main-content closed -->
+		</form>
+	</div>
+</div>
+
 @endsection
 
 @section('js')

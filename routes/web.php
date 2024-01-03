@@ -53,8 +53,20 @@ Route::middleware(['auth', 'verified'])-> prefix('cpanel')->group(function () {
         });
 
         //   /news
-        Route::resource('news/show', NewsController::class);
+        // Route::resource('news/show', NewsController::class);
+        // Route::resource('news', NewsController::class);
         
+
+        Route:: prefix('news')->group(function () {
+            Route::get('show', [NewsController::class, 'index']);
+            Route::get('add', [NewsController::class, 'create']);
+            Route::post('save', [NewsController::class, 'store'])->name('news.save');
+
+            Route::get('edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
+            Route::post('update/{id}', [NewsController::class, 'update'])->name('news.update');
+
+            Route::delete('delete/{id}', [NewsController::class, 'destroy'])->name('news.delete');
+        });
         
    });
    

@@ -69,7 +69,7 @@
 											<label for="inputName" class="control-label">اسم التصنيف</label>
 											<input type="hidden" name="id" value="{{ $category->id }}">
 											<input type="text" class="form-control" id="inputName" name="category_name"
-												title="يرجى إدخال عنوان التصنيف" value="{{ $category->category_name }}" required>
+												title="يرجى إدخال اسم التصنيف" value="{{ $category->category_name }}" required>
 										</div>
 									</div><br>
 

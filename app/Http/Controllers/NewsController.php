@@ -56,9 +56,10 @@ class NewsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $new = News::findOrFail($id);
+        return view('admin.news.edit', compact('new'));
     }
 
     /**
@@ -72,6 +73,9 @@ class NewsController extends Controller
             'title'=>$request->title,
             'content'=>$request->content,
         ]);
+
+        session()->flash('Edit', 'تم تعديل الخبر بنجاح');
+        return back(); 
     }
 
     /**
@@ -79,6 +83,8 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-        News::findorFail($id)->delete();
+        News::findorFail($id)->first()->delete();
+        session()->flash('delete', 'تم حذف التصنيف بنجاح');
+        return back();
     }
 }

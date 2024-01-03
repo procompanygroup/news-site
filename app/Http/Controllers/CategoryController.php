@@ -71,9 +71,6 @@ class CategoryController extends Controller
      */
     public function update(Request $request,$id)
     {
-        // $category = Category::findOrFail($request->id);
-        return $id;
-/*
         $category = Category::findorFail($id);
         $category->update([
             'category_name'=>$request->category_name,
@@ -82,8 +79,7 @@ class CategoryController extends Controller
         ]);
 
         session()->flash('Edit', 'تم تعديل التصنيف بنجاح');
-        return back();
-        */
+        return back(); 
     }
 
     /**
