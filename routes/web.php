@@ -3,7 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use     App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\NewsController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,13 +36,25 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])-> prefix('cpanel')->group(function () {
     // /cpanel
   
-        
         Route::get('', [AdminController::class, 'index']);
+
         //   /category
+        // Route::resource('category', CategoryController::class);
+
         Route:: prefix('category')->group(function () {
             Route::get('show', [CategoryController::class, 'index']);
             Route::get('add', [CategoryController::class, 'create']);
+            Route::post('save', [CategoryController::class, 'store'])->name('category.save');
+
+            Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+            Route::post('update/{id}', [CategoryController::class, 'update'])->name('category.update');
+
+            Route::delete('delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
         });
+
+        //   /news
+        Route::resource('news/show', NewsController::class);
+        
         
    });
    
