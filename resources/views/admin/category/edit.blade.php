@@ -8,7 +8,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">التصنيفات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ تعديل تصنيف</span>
+							<h4 class="content-title mb-0 my-auto">Pages</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Empty</span>
 						</div>
 					</div>
 					<div class="d-flex my-xl-auto right-content">
@@ -43,15 +43,15 @@
 @section('content')
 
 
-
-@if (session()->has('Edit'))
+@if (session()->has('edit'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
-	<strong>{{ session()->get('Edit') }}</strong>
+	<strong>{{ session()->get('edit') }}</strong>
 	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
 @endif
+
 
 				<!-- row -->
 				<div class="row">
@@ -60,9 +60,11 @@
 						<div class="card">
 							<div class="card-body">
 			
-								<form action="{{ route('category.update', $category->id) }}" method="post" autocomplete="off">
-									{{-- {{ method_field('patch') }} --}}
+								<form action="{{ route('category.update', ['id' => $category->id])) }}" method="post" autocomplete="off">
+									{{ method_field('patch') }}
 									{{ csrf_field() }}
+
+						
 
 									<div class="row">
 										<div class="col">
@@ -70,20 +72,8 @@
 											<input type="hidden" name="id" value="{{ $category->id }}">
 											<input type="text" class="form-control" id="inputName" name="category_name"
 												title="يرجى إدخال عنوان التصنيف" value="{{ $category->category_name }}" required>
-										</div>
-									</div><br>
-
-									<div class="form-group">
-										<label>التصنيف الأب</label>
-										<select name="parent_id" class="form-control select">
-											
-											 @foreach($parents as $parent)
-											<option value="{{$parent->id}}">{{$parent->category_name}}</option>
-											@endforeach 
-
-										</select>
-									</div>
-
+										</div><br>
+			
 									<div class="row">
 										<div class="col">
 											<label for="exampleTextarea">الوصف</label>
@@ -100,7 +90,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
 				<!-- row closed -->
 @endsection

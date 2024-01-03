@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->string('content')->nullable();
-            $table->foreignId('user_id');
-            $table->foreignId('news_id');
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('news_id')->nullable();
             $table->date('date')->nullable();
             $table->integer('status')->nullable();
             $table->timestamps();

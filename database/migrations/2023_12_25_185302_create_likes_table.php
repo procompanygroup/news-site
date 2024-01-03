@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
             $table->integer('like_value')->nullable();
-            $table->foreignId('news_id');
+            $table->foreignId('news_id')->nullable();
             $table->timestamps();
         });
     }

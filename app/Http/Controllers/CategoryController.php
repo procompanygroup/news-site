@@ -21,10 +21,9 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        $parents=Category::all();
-        return view('admin.category.add', compact('parents'));
+        return view('admin.category.add');
     }
 
     /**
@@ -61,18 +60,24 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $parents=Category::all();
+        // $id = $request->id;
+        // $category = Category::where('id', $id)->first();
+
         $category = Category::findOrFail($id);
-        return view('admin.category.edit', compact('category', 'parents'));
+
+        // $category = Category::where('id', $id)->first();
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
+        // $category = Category::findOrFail($request->id);
+        return $id;
+/*
         $category = Category::findorFail($id);
-
         $category->update([
             'category_name'=>$request->category_name,
             'category_description'=>$request->category_description,
@@ -81,15 +86,22 @@ class CategoryController extends Controller
 
         session()->flash('Edit', 'تم تعديل التصنيف بنجاح');
         return back();
+        */
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        Category::findorFail($id)->first()->delete();
+        $id = $request->id;
+        Category::findorFail($id)->delete();
+
+        // $id = $request->id;
+        // $category = Category::where('id', $id)->delete();
+
         session()->flash('delete', 'تم حذف التصنيف بنجاح');
-        return back();
+        return back();  
+
     }
 }

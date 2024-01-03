@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('rates', function (Blueprint $table) {
             $table->id();
             $table->integer('rate_value')->nullable();
-            $table->foreignId('user_id');
-            $table->foreignId('news_id');
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('news_id')->nullable();
             $table->timestamps();
         });
     }
