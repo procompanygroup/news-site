@@ -6,6 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\News;
+use App\Models\Category;
 
 class NewsController extends Controller
 {
@@ -23,7 +24,8 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('admin.news.add');
+        $parents=Category::all();
+        return view('admin.news.add', compact('parents'));
     }
 
     /**
@@ -58,8 +60,9 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
+        $parents=Category::all();
         $new = News::findOrFail($id);
-        return view('admin.news.edit', compact('new'));
+        return view('admin.news.edit', compact('new', 'parents'));
     }
 
     /**

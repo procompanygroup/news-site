@@ -20,7 +20,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">التصنيفات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ إضافة تصنيف</span>
+							<h4 class="content-title mb-0 my-auto">الوسوم</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ إضافة وسم</span>
 						</div>
 					</div>
 					<div class="d-flex my-xl-auto right-content">
@@ -69,33 +69,21 @@
 						<div class="card">
 							<div class="card-body">
 			
-								<form action={{ route('category.save') }} method="post" enctype="multipart/form-data" autocomplete="off">
+								<form action={{ route('tags.save') }} method="post" enctype="multipart/form-data" autocomplete="off">
 									{{ csrf_field() }}
 			
 									<div class="row">
 										<div class="col">
-											<label for="inputName" class="control-label">اسم التصنيف</label>
-											<input type="text" class="form-control" id="inputName" name="category_name"
-												title="يرجى إدخال اسم التصنيف" required>
+											<label for="inputName" class="control-label">اسم الوسم</label>
+											<input type="text" class="form-control" id="inputName" name="tag_name"
+												title="يرجى إدخال اسم الوسم" required>
 										</div>
 									</div><br>
-			
-									<div class="form-group">
-										<label>التصنيف الأب</label>
-										<select name="parent_id" class="form-control select">
-											
-											@foreach($parents as $parent)
-											<option value="{{$parent->id}}">{{$parent->category_name}}</option>
-											@endforeach 
-
-											<option value="0">لا يوجد</option>
-										</select>
-									</div>
 			
 									<div class="row">
 										<div class="col">
 											<label for="exampleTextarea">الوصف</label>
-											<textarea class="form-control" id="exampleTextarea" name="category_description" rows="3"></textarea>
+											<textarea class="form-control" id="exampleTextarea" name="tag_description" rows="3"></textarea>
 										</div>
 									</div><br>
 			

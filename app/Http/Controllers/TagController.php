@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Tags; 
 
 class TagController extends Controller
@@ -12,7 +14,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $tags=Tags::all();
+        return view('admin.tags.show', compact('tags'));
     }
 
     /**
@@ -20,25 +23,26 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.tags.add');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'tag_name' => 'required|unique:tags',
+        $validator = Validator::make($request->all(), [
+            'tag_name' => 'required|unique:tags|max:255',
             'tag_description' => 'required',
-            'media_id' => 'required',
         ]);
 
         Tags::create([
             'tag_name'=>$request->tag_name,
-            'tag_description'=>$request->tag_description,
-            'media_id'=>$request->media_id,  
+            'tag_description'=>$request->tag_description,  
         ]);
+
+        session()->flash('Add', 'تم إضافة الوسم بنجاح');
+        return back();
     }
 
     /**
@@ -52,9 +56,10 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $tag = Tags::findOrFail($id);
+        return view('admin.tags.edit', compact('tag'));
     }
 
     /**
@@ -63,12 +68,13 @@ class TagController extends Controller
     public function update(Request $request, $id)
     {
         $tag = Tags::findorFail($id);
-
         $tag->update([
             'tag_name'=>$request->tag_name,
             'tag_description'=>$request->tag_description,
-            'media_id'=>$request->media_id,
         ]);
+
+        session()->flash('Edit', 'تم تعديل الوسم بنجاح');
+        return back(); 
     }
 
     /**
@@ -76,6 +82,8 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        Tags::findorFail($id)->delete();
+        Tags::findorFail($id)->first()->delete();
+        session()->flash('delete', 'تم حذف الوسم بنجاح');
+        return back();
     }
 }

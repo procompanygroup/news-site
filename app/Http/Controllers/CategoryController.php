@@ -61,7 +61,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $parents=Category::all();
+        $parents=Category::where('id', '!=', $id)->get();
         $category = Category::findOrFail($id);
         return view('admin.category.edit', compact('category', 'parents'));
     }
@@ -85,7 +85,7 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
         Category::findorFail($id)->first()->delete();
         session()->flash('delete', 'تم حذف التصنيف بنجاح');

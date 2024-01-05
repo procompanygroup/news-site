@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +57,6 @@ Route::middleware(['auth', 'verified'])-> prefix('cpanel')->group(function () {
         // Route::resource('news/show', NewsController::class);
         // Route::resource('news', NewsController::class);
         
-
         Route:: prefix('news')->group(function () {
             Route::get('show', [NewsController::class, 'index']);
             Route::get('add', [NewsController::class, 'create']);
@@ -67,6 +67,21 @@ Route::middleware(['auth', 'verified'])-> prefix('cpanel')->group(function () {
 
             Route::delete('delete/{id}', [NewsController::class, 'destroy'])->name('news.delete');
         });
+        
+        //   /tags
+
+        Route:: prefix('tags')->group(function () {
+            Route::get('show', [TagController::class, 'index']);
+            Route::get('add', [TagController::class, 'create']);
+            Route::post('save', [TagController::class, 'store'])->name('tags.save');
+
+            Route::get('edit/{id}', [TagController::class, 'edit'])->name('tags.edit');
+            Route::post('update/{id}', [TagController::class, 'update'])->name('tags.update');
+
+            Route::delete('delete/{id}', [TagController::class, 'destroy'])->name('tags.delete');
+        });
+
+
         
    });
    

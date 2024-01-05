@@ -1,14 +1,19 @@
 @extends('admin.layouts.master')
-
 @section('css')
+<!-- Internal Data table css -->
+<link href="{{URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
+<link href="{{URL::asset('assets/plugins/datatable/css/buttons.bootstrap4.min.css')}}" rel="stylesheet">
+<link href="{{URL::asset('assets/plugins/datatable/css/responsive.bootstrap4.min.css')}}" rel="stylesheet" />
+<link href="{{URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css')}}" rel="stylesheet">
+<link href="{{URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css')}}" rel="stylesheet">
+<link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
 @endsection
-
 @section('page-header')
 				<!-- breadcrumb -->
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">الأخبار</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ جميع الأخبار</span>
+							<h4 class="content-title mb-0 my-auto">الوسوم</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ جميع الوسوم</span>
 						</div>
 					</div>
 					<div class="d-flex my-xl-auto right-content">
@@ -39,15 +44,34 @@
 				</div>
 				<!-- breadcrumb -->
 @endsection
-
 @section('content')
-				<!-- row -->
+
+@if(session()->has('delete'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+	<strong>{{ session()->get('delete') }}</strong>
+	<button type="button" class="close" data_dismiss="alert" aria_lable="Close">
+		<span aria_hidden="true">&times;</span>
+	</button>
+</div>
+@endif
+
+
+@if(session()->has('Edit'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+	<strong>{{ session()->get('Edit') }}</strong>
+	<button type="button" class="close" data_dismiss="alert" aria_lable="Close">
+		<span aria_hidden="true">&times;</span>
+	</button>
+</div>
+@endif
+
+				<!-- row opened -->
 				<div class="row row-sm">
 					<div class="col-xl-12">
 						<div class="card">
 							<div class="card-header pb-0">
 								<div class="d-flex justify-content-between">
-									<h4 class="card-title mg-b-0">جميع الأخبار</h4>
+									<h4 class="card-title mg-b-0">جميع الوسوم</h4>
 									<i class="mdi mdi-dots-horizontal text-gray"></i>
 								</div>
 							</div>
@@ -57,36 +81,26 @@
 										<thead>
 											<tr>
 												<th class="wd-15p border-bottom-0">#</th>
-												<th class="wd-15p border-bottom-0">عنوان الخبر</th>
-												<th class="wd-15p border-bottom-0">المحتوى</th>
-												<th class="wd-15p border-bottom-0"> الكاتب</th>
-
-												<th class="wd-15p border-bottom-0"> التصنيف</th>
-												<th class="wd-15p border-bottom-0"> الوسوم</th>
-
-												<th class="wd-15p border-bottom-0">الحالة</th>
+												<th class="wd-15p border-bottom-0">اسم الوسم</th>
+												<th class="wd-20p border-bottom-0">الوصف</th>
+												<th class="wd-20p border-bottom-0">العمليات</th>
 											</tr>
 										</thead>
 										<tbody>
 											<?php $i = 1 ?>
-											@foreach($news as $new)
+											@foreach($tags as $tag)
 											<tr>
-												<td>{{$i++}}</td>
-												<td>{{$new->title}}</td>
-												<td>{{$new->content}}</td>
-												<td>{{$new->composer_id}}</td>
-
-												<td>{{$new->category_id}}</td>
-												<td>{{$new->tag_id}}</td>
-
-												<td>{{$new->status}}</td>
+												<td>{{ $i++ }}</td>
+												<td>{{ $tag->tag_name }}</td>
+												<td>{{ $tag->tag_description }}</td>
 												<td>
-													<a class="btn btn-sm btn-info" href="{{ route('news.edit', $new->id) }}" title="تعديل"><i class="las la-pen"></i></a>
+													<a class="btn btn-sm btn-info" href="{{ route('tags.edit', $tag->id) }}" title="تعديل"><i class="las la-pen"></i></a>
 
 													<a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                	data-id="{{ $new->id }}" data-title="{{ $new->title }}" data-toggle="modal"
+                                                	data-id="{{ $tag->id }}" data-tag_name="{{ $tag->tag_name }}" data-toggle="modal"
                                                 	href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
-												</td>
+												</td> 
+												
 											</tr>
 											@endforeach
 										</tbody>
@@ -97,7 +111,7 @@
 					</div>
 					<!--/div-->
 				</div>
-				<!-- row closed -->
+				<!-- /row -->
 
 
 <!-- delete -->
@@ -105,16 +119,16 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content modal-content-demo">
 			<div class="modal-header">
-				<h6 class="modal-title">حذف الخبر</h6><button aria-label="Close" class="close" data-dismiss="modal"
+				<h6 class="modal-title">حذف الوسم</h6><button aria-label="Close" class="close" data-dismiss="modal"
 					type="button"><span aria-hidden="true">&times;</span></button>
 			</div>
-			<form action={{ route('news.delete', $new->id) }} method="post">
+			<form action={{ route('tags.delete', $tag->id) }} method="post">
 				{{method_field('delete')}}
 				{{csrf_field()}}
 				<div class="modal-body">
 					<p>هل أنت متأكد من عملية الحذف؟</p><br>
 					<input type="hidden" name="id" id="id">
-					<input class="form-control" name="title" id="title" type="text" readonly>
+					<input class="form-control" name="tag_name" id="tag_name" type="text" readonly>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
@@ -126,9 +140,7 @@
 </div>
 
 @endsection
-
 @section('js')
-
 <!-- Internal Data tables -->
 <script src="{{URL::asset('assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/datatable/js/dataTables.dataTables.min.js')}}"></script>
@@ -150,14 +162,14 @@
 <script src="{{URL::asset('assets/js/table-data.js')}}"></script>
 
 <script>
-	 $('#modaldemo9').on('show.bs.modal', function(event) {
+		 $('#modaldemo9').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var id = button.data('id')
-            var title = button.data('title')
+            var tag_name = button.data('tag_name')
             var modal = $(this)
 
             modal.find('.modal-body #id').val(id);
-            modal.find('.modal-body #title').val(title);
+            modal.find('.modal-body #tag_name').val(tag_name);
         })
 </script>
 

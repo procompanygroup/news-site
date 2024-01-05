@@ -70,8 +70,8 @@
 										</div>
 									</div><br>
 
-									{{-- <div class="form-group">
-										<label>التصنيف الأب</label>
+									<div class="form-group">
+										<label>التصنيف</label>
 										<select name="parent_id" class="form-control select">
 											
 											 @foreach($parents as $parent)
@@ -79,7 +79,7 @@
 											@endforeach 
 
 										</select>
-									</div> --}}
+									</div>
 
 									<div class="row">
 										<div class="col">

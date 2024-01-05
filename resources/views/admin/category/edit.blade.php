@@ -81,6 +81,7 @@
 											<option value="{{$parent->id}}">{{$parent->category_name}}</option>
 											@endforeach 
 
+											<option value="0">لا يوجد</option>
 										</select>
 									</div>
 
