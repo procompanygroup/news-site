@@ -73,21 +73,33 @@
 										</div>
 									</div><br>
 
+									<div class="row">
+										<div class="col">
+											<label for="inputName" class="control-label">slug</label>
+											<input type="hidden" name="slug" value="{{ $category->slug }}">
+											<input type="text" class="form-control" id="inputName" name="slug"
+											value="{{ $category->slug }}" required>
+										</div>
+									</div><br>
+
 									<div class="form-group">
 										<label>التصنيف الأب</label>
+										<input type="hidden" name="parent_id" value="{{ $category->parent_id }}">
 										<select name="parent_id" class="form-control select">
 											
+											<option value="0">لا يوجد</option>
+
 											 @foreach($parents as $parent)
 											<option value="{{$parent->id}}">{{$parent->category_name}}</option>
 											@endforeach 
 
-											<option value="0">لا يوجد</option>
 										</select>
 									</div>
 
 									<div class="row">
 										<div class="col">
 											<label for="exampleTextarea">الوصف</label>
+											<input type="hidden" name="category_description" value="{{ $category->category_description }}">
 											<textarea class="form-control" id="exampleTextarea" name="category_description" rows="3">
 											{{ $category->category_description }}</textarea>
 										</div>

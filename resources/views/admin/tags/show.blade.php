@@ -82,6 +82,7 @@
 											<tr>
 												<th class="wd-15p border-bottom-0">#</th>
 												<th class="wd-15p border-bottom-0">اسم الوسم</th>
+												<th class="wd-15p border-bottom-0">slug</th>
 												<th class="wd-20p border-bottom-0">الوصف</th>
 												<th class="wd-20p border-bottom-0">العمليات</th>
 											</tr>
@@ -92,6 +93,7 @@
 											<tr>
 												<td>{{ $i++ }}</td>
 												<td>{{ $tag->tag_name }}</td>
+												<td>{{ $tag->slug }}</td>
 												<td>{{ $tag->tag_description }}</td>
 												<td>
 													<a class="btn btn-sm btn-info" href="{{ route('tags.edit', $tag->id) }}" title="تعديل"><i class="las la-pen"></i></a>

@@ -58,12 +58,11 @@
 											<tr>
 												<th class="wd-15p border-bottom-0">#</th>
 												<th class="wd-15p border-bottom-0">عنوان الخبر</th>
+												<th class="wd-15p border-bottom-0">slug</th>
 												<th class="wd-15p border-bottom-0">المحتوى</th>
 												<th class="wd-15p border-bottom-0"> الكاتب</th>
-
 												<th class="wd-15p border-bottom-0"> التصنيف</th>
 												<th class="wd-15p border-bottom-0"> الوسوم</th>
-
 												<th class="wd-15p border-bottom-0">الحالة</th>
 											</tr>
 										</thead>
@@ -73,12 +72,11 @@
 											<tr>
 												<td>{{$i++}}</td>
 												<td>{{$new->title}}</td>
+												<td>{{$new->slug}}</td>
 												<td>{{$new->content}}</td>
 												<td>{{$new->composer_id}}</td>
-
 												<td>{{$new->category_id}}</td>
 												<td>{{$new->tag_id}}</td>
-
 												<td>{{$new->status}}</td>
 												<td>
 													<a class="btn btn-sm btn-info" href="{{ route('news.edit', $new->id) }}" title="تعديل"><i class="las la-pen"></i></a>

@@ -80,15 +80,23 @@
 										</div>
 									</div><br>
 			
+									<div class="row">
+										<div class="col">
+											<label for="inputName" class="control-label">slug</label>
+											<input type="text" class="form-control" id="inputName" name="slug" required>
+										</div>
+									</div><br>
+
 									<div class="form-group">
 										<label>التصنيف الأب</label>
 										<select name="parent_id" class="form-control select">
 											
+											<option value="0">لا يوجد</option>
+
 											@foreach($parents as $parent)
 											<option value="{{$parent->id}}">{{$parent->category_name}}</option>
 											@endforeach 
 
-											<option value="0">لا يوجد</option>
 										</select>
 									</div>
 			

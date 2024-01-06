@@ -8,11 +8,26 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\CategoryNews;
 use App\Models\CategoryUser;
 
+// use Cviebrock\EloquentSluggable\Sluggable;
+
 class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category_name', 'category_description', 'create_user_id', 'update_user_id', 'parent_id', 'media_id'];
+    // use Sluggable;
+
+    // public function Sluggable():array
+    // {
+    //     return
+    //     [
+    //         'slug'=>
+    //         [
+    //             'source'=> 'category_name'
+    //         ]
+    //         ];
+    // }
+ 
+    protected $fillable = ['category_name', 'category_description', 'create_user_id', 'update_user_id', 'parent_id', 'media_id','parent_name'];
 
     
     public function category_news(): HasMany

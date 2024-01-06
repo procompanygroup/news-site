@@ -42,8 +42,6 @@
 
 @section('content')
 
-
-
 @if (session()->has('Edit'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
 	<strong>{{ session()->get('Edit') }}</strong>
@@ -75,7 +73,17 @@
 
 									<div class="row">
 										<div class="col">
+											<label for="inputName" class="control-label">slug</label>
+											<input type="hidden" name="slug" value="{{ $tag->slug }}">
+											<input type="text" class="form-control" id="inputName" name="slug"
+											value="{{ $tag->slug }}" required>
+										</div>
+									</div><br>
+
+									<div class="row">
+										<div class="col">
 											<label for="exampleTextarea">الوصف</label>
+											<input type="hidden" name="tag_description" value="{{ $tag->tag_description }}">
 											<textarea class="form-control" id="exampleTextarea" name="tag_description" rows="3">
 											{{ $tag->tag_description }}</textarea>
 										</div>

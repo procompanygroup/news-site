@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\News;
 use App\Models\Category;
+use App\Models\Tags;
+
+use Illuminate\Support\Str;
 
 class NewsController extends Controller
 {
@@ -16,7 +19,8 @@ class NewsController extends Controller
     public function index()
     {
         $news=News::all();
-        return view('admin.news.show', compact('news'));
+        $tags=Tags::all();
+        return view('admin.news.show', compact('news', 'tags'));
     }
 
     /**
@@ -24,8 +28,9 @@ class NewsController extends Controller
      */
     public function create()
     {
-        $parents=Category::all();
-        return view('admin.news.add', compact('parents'));
+        $categories=Category::all();
+        $tags=Tags::all();
+        return view('admin.news.add', compact('categories', 'tags'));
     }
 
     /**
@@ -36,11 +41,21 @@ class NewsController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|unique:news|max:255',
             'content' => 'required',
+            'composer_id' => 'required',
+            'category_id' => 'required',
+            'tag_id' => 'required',
+            'status' => 'required',
+            'slug' => 'required',
         ]);
 
         News::create([
             'title'=>$request->title,
             'content'=>$request->content,
+            'composer_id'=>$request->composer_id,
+            'category_id'=>$request->category_id,
+            'tag_id'=>$request->tag_id,
+            'status'=>$request->status,
+            'slug'=>Str::slug($request->slug),
         ]);
 
         session()->flash('Add', 'تم إضافة الخبر بنجاح');
@@ -60,9 +75,10 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        $parents=Category::all();
+        $categories=Category::all();
+        $tags=Tags::all();
         $new = News::findOrFail($id);
-        return view('admin.news.edit', compact('new', 'parents'));
+        return view('admin.news.edit', compact('new', 'categories', 'tags'));
     }
 
     /**
@@ -75,6 +91,11 @@ class NewsController extends Controller
         $new->update([
             'title'=>$request->title,
             'content'=>$request->content,
+            'composer_id'=>$request->composer_id,
+            'category_id'=>$request->category_id,
+            'tag_id'=>$request->tag_id,
+            'status'=>$request->status,
+            'slug'=>Str::slug($request->slug),
         ]);
 
         session()->flash('Edit', 'تم تعديل الخبر بنجاح');

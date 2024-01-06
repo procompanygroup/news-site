@@ -82,6 +82,7 @@
 											<tr>
 												<th class="wd-15p border-bottom-0">#</th>
 												<th class="wd-15p border-bottom-0">اسم التصنيف</th>
+												<th class="wd-15p border-bottom-0">slug</th>
 												<th class="wd-20p border-bottom-0">الوصف</th>
 												<th class="wd-15p border-bottom-0">التصنيف الأب</th>
 												<th class="wd-10p border-bottom-0">العمليات</th>
@@ -93,8 +94,9 @@
 											<tr>
 												<td>{{ $i++ }}</td>
 												<td>{{ $category->category_name }}</td>
+												<td>{{  $category->slug }}</td>
 												<td>{{ $category->category_description }}</td>
-												<td>{{ $category->category_name }}</td>
+												<td>{{  $category->parent_name }}</td>
 												<td>
 													<a class="btn btn-sm btn-info" href="{{ route('category.edit', $category->id) }}" title="تعديل"><i class="las la-pen"></i></a>
 

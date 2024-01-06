@@ -82,6 +82,13 @@
 			
 									<div class="row">
 										<div class="col">
+											<label for="inputName" class="control-label">slug</label>
+											<input type="text" class="form-control" id="inputName" name="slug" required>
+										</div>
+									</div><br>
+
+									<div class="row">
+										<div class="col">
 											<label for="exampleTextarea">الوصف</label>
 											<textarea class="form-control" id="exampleTextarea" name="tag_description" rows="3"></textarea>
 										</div>

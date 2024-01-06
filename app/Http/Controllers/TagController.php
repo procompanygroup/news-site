@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Tags; 
 
+use Illuminate\Support\Str;
+
 class TagController extends Controller
 {
     /**
@@ -34,11 +36,13 @@ class TagController extends Controller
         $validator = Validator::make($request->all(), [
             'tag_name' => 'required|unique:tags|max:255',
             'tag_description' => 'required',
+            'slug' => 'required',
         ]);
 
         Tags::create([
             'tag_name'=>$request->tag_name,
-            'tag_description'=>$request->tag_description,  
+            'tag_description'=>$request->tag_description, 
+            'slug'=>Str::slug($request->slug),
         ]);
 
         session()->flash('Add', 'تم إضافة الوسم بنجاح');
@@ -71,6 +75,7 @@ class TagController extends Controller
         $tag->update([
             'tag_name'=>$request->tag_name,
             'tag_description'=>$request->tag_description,
+            'slug'=>Str::slug($request->slug),
         ]);
 
         session()->flash('Edit', 'تم تعديل الوسم بنجاح');
