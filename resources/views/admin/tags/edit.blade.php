@@ -67,7 +67,7 @@
 											<label for="inputName" class="control-label">اسم الوسم</label>
 											<input type="hidden" name="id" value="{{ $tag->id }}">
 											<input type="text" class="form-control" id="inputName" name="tag_name"
-												title="يرجى إدخال اسم الوسم" value="{{ $tag->tag_name }}" required>
+											value="{{ $tag->tag_name }}" required>
 										</div>
 									</div><br>
 

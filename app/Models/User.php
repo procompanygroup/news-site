@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\CategoryUser;
+use App\Models\News;
 
 class User extends Authenticatable
 {
@@ -50,6 +51,11 @@ class User extends Authenticatable
     public function category_user(): HasMany
     {
         return $this->hasMany(CategoryUser::class);
+    }
+
+    public function news(): HasMany
+    {
+        return $this->hasMany(News::class);
     }
 
 }

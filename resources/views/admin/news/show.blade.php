@@ -74,8 +74,8 @@
 												<td>{{$new->title}}</td>
 												<td>{{$new->slug}}</td>
 												<td>{{$new->content}}</td>
-												<td>{{$new->composer_id}}</td>
-												<td>{{$new->category_id}}</td>
+												<td>{{$new->user_name}}</td>
+												<td>{{$new->category_name}}</td>
 												<td>{{$new->tag_id}}</td>
 												<td>{{$new->status}}</td>
 												<td>

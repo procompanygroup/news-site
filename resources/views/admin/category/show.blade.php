@@ -94,9 +94,9 @@
 											<tr>
 												<td>{{ $i++ }}</td>
 												<td>{{ $category->category_name }}</td>
-												<td>{{  $category->slug }}</td>
+												<td>{{ $category->slug }}</td>
 												<td>{{ $category->category_description }}</td>
-												<td>{{  $category->parent_name }}</td>
+												<td>{{ $category->parent_name }}</td>
 												<td>
 													<a class="btn btn-sm btn-info" href="{{ route('category.edit', $category->id) }}" title="تعديل"><i class="las la-pen"></i></a>
 

@@ -12,7 +12,9 @@ class NewsTags extends Model
 {
     use HasFactory;
 
+    protected $table = 'news_tags';
     protected $fillable = ['tag_id', 'news_id', 'create_user_id', 'date'];
+
 
 
     public function news(): BelongsTo

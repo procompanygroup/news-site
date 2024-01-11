@@ -1,12 +1,16 @@
 @extends('admin.layouts.master')
 
 @section('css')
-{{-- 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
-
-{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/css/multi-select-tag.css"> --}}
-
+<!--- Internal Select2 css-->
+<link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
+<!---Internal Fileupload css-->
+<link href="{{URL::asset('assets/plugins/fileuploads/css/fileupload.css')}}" rel="stylesheet" type="text/css"/>
+<!---Internal Fancy uploader css-->
+<link href="{{URL::asset('assets/plugins/fancyuploder/fancy_fileupload.css')}}" rel="stylesheet" />
+<!--Internal Sumoselect css-->
+<link rel="stylesheet" href="{{URL::asset('assets/plugins/sumoselect/sumoselect-rtl.css')}}">
+<!--Internal  TelephoneInput css-->
+<link rel="stylesheet" href="{{URL::asset('assets/plugins/telephoneinput/telephoneinput-rtl.css')}}">
 @endsection
 
 @section('page-header')
@@ -118,25 +122,14 @@
 									<div class="form-group">
 										<label>الوسوم</label>
 										<input type="hidden" name="tag_id" value="{{ $new->tag_id }}">
-										<select class="tags form-control" name="tag_id" id="tags" multiple="multiple">
-											
-											 @foreach($tags as $tag)
+										<select name="tag_id" multiple="multiple" class="testselect2">
+
+											@foreach($tags as $tag)
 											<option value="{{$tag->id}}">{{$tag->tag_name}}</option>
 											@endforeach 
 
 										</select>
 									</div><br>
-			
-
-									{{-- <div class="form-group">
-										<div class="col-lg-12">
-											<select name="tag_id" id="tags" multiple>
-												<option>AAA</option>
-												<option>BBB</option>
-												<option>CCC</option>
-											</select>
-										</div>
-									</div> --}}
 
 									<div class="form-group">
 										<label class="display-block">حالة الخبر</label> <br>
@@ -171,11 +164,25 @@
 @endsection
 
 @section('js')
-
-{{-- <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>
-<script>
-    new MultiSelectTag('tags')  // id
-</script> --}}
-
-
+<!--Internal  Datepicker js -->
+<script src="{{URL::asset('assets/plugins/jquery-ui/ui/widgets/datepicker.js')}}"></script>
+<!-- Internal Select2 js-->
+<script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
+<!--Internal Fileuploads js-->
+<script src="{{URL::asset('assets/plugins/fileuploads/js/fileupload.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/fileuploads/js/file-upload.js')}}"></script>
+<!--Internal Fancy uploader js-->
+<script src="{{URL::asset('assets/plugins/fancyuploder/jquery.ui.widget.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/fancyuploder/jquery.fileupload.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/fancyuploder/jquery.iframe-transport.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/fancyuploder/jquery.fancy-fileupload.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/fancyuploder/fancy-uploader.js')}}"></script>
+<!--Internal  Form-elements js-->
+<script src="{{URL::asset('assets/js/advanced-form-elements.js')}}"></script>
+<script src="{{URL::asset('assets/js/select2.js')}}"></script>
+<!--Internal Sumoselect js-->
+<script src="{{URL::asset('assets/plugins/sumoselect/jquery.sumoselect.js')}}"></script>
+<!-- Internal TelephoneInput js-->
+<script src="{{URL::asset('assets/plugins/telephoneinput/telephoneinput.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/telephoneinput/inttelephoneinput.js')}}"></script>
 @endsection

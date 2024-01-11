@@ -27,9 +27,11 @@ class Category extends Model
     //         ];
     // }
  
-    protected $fillable = ['category_name', 'category_description', 'create_user_id', 'update_user_id', 'parent_id', 'media_id','parent_name'];
+    protected $categories = 'parent_name';
 
-    
+    protected $fillable = ['category_name', 'category_description', 'create_user_id', 'update_user_id', 'parent_id', 'media_id', 'slug'];
+
+
     public function category_news(): HasMany
     {
         return $this->hasMany(CategoryNews::class);
