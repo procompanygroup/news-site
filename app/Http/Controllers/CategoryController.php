@@ -102,7 +102,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::findorFail($id)->first()->delete();
+        Category::findorFail($id)->delete();
         session()->flash('delete', 'تم حذف التصنيف بنجاح');
         return back();
     }

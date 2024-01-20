@@ -103,6 +103,20 @@
 													<a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
                                                 	data-id="{{ $category->id }}" data-category_name="{{ $category->category_name }}" data-toggle="modal"
                                                 	href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
+													
+													
+													{{-- <a href="{{route('category.edit', $category->id)}}"  class="btn btn-sm btn-info" title="تعديل"><i class="las la-pen"></i></a>
+
+													<form action="{{ route('category.delete', $category->id) }}" method="get">
+														@csrf
+													  	@method('delete')
+												   
+												   		<a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale" 
+												   		data-id="{{ $category->id }}" data-category_name="{{ $category->category_name }}" 
+												   		data-toggle="modal" href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
+												   	</form> --}}
+
+
 												</td> 
 												
 											</tr>

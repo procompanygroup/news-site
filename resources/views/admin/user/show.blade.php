@@ -17,27 +17,9 @@
 						</div>
 					</div>
 					<div class="d-flex my-xl-auto right-content">
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-info btn-icon ml-2"><i class="mdi mdi-filter-variant"></i></button>
-						</div>
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-danger btn-icon ml-2"><i class="mdi mdi-star"></i></button>
-						</div>
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-warning  btn-icon ml-2"><i class="mdi mdi-refresh"></i></button>
-						</div>
 						<div class="mb-3 mb-xl-0">
 							<div class="btn-group dropdown">
-								<button type="button" class="btn btn-primary">14 Aug 2019</button>
-								<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuDate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="sr-only">Toggle Dropdown</span>
-								</button>
-								<div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuDate" data-x-placement="bottom-end">
-									<a class="dropdown-item" href="#">2015</a>
-									<a class="dropdown-item" href="#">2016</a>
-									<a class="dropdown-item" href="#">2017</a>
-									<a class="dropdown-item" href="#">2018</a>
-								</div>
+								<a type="button" class="btn btn-primary" href="{{ url('/cpanel/user/add') }}"> <i class="fas fa-plus"></i>&nbsp; إضافة مستخدم</a>
 							</div>
 						</div>
 					</div>
@@ -54,7 +36,6 @@
 									<h4 class="card-title mg-b-0">قائمة المستخدمين</h4>
 									<i class="mdi mdi-dots-horizontal text-gray"></i>
 								</div>
-								{{-- <p class="tx-12 tx-gray-500 mb-2">Example of Valex Simple Table. <a href="">Learn more</a></p> --}}
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
@@ -68,8 +49,9 @@
 												<th class="wd-15p border-bottom-0">العنوان</th>
 												<th class="wd-15p border-bottom-0">رقم الموبايل</th>
 												<th class="wd-15p border-bottom-0">البريد الإلكتروني</th>
-												<th class="wd-15p border-bottom-0">الوظيفة</th>
+												<th class="wd-15p border-bottom-0">الدور</th>
 												<th class="wd-15p border-bottom-0">الحالة</th>
+												<th class="wd-15p border-bottom-0">العمليات</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -84,9 +66,14 @@
 												<td>{{$user->mobile}}</td>
 												<td>{{$user->email }}</td>
 												<td>{{$user->role}}</td>
-												{{-- <td>
-													<a href=""><i class="fa fa-pencil m-r-5"></i>تعديل</a>
-												</td> --}}
+												<td>{{$user->status}}</td>
+												<td>
+													<a class="btn btn-sm btn-info" href="{{ route('user.edit', $user->id) }}" title="تعديل"><i class="las la-pen"></i></a>
+
+													<a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                                	data-id="{{ $user->id }}" data-title="{{ $user->user_name }}" data-toggle="modal"
+                                                	href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
+												</td>
 											</tr>
 											@endforeach
 										</tbody>

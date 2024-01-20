@@ -43,6 +43,18 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+
+        // 'admin' => [
+        //     'auth',
+        //     'CheckUserRole:admin',
+        // ],
+
+        // 'composer' => [
+        //     'auth',
+        //     'CheckUserRole:composer',
+        // ],
+
+        
     ];
 
     /**
@@ -64,5 +76,10 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
+        //permissions
+        'admin' => \App\Http\Middleware\Admin::class,
+        'composer' => \App\Http\Middleware\Composer::class,
+        'visitor' => \App\Http\Middleware\Visitor::class,
     ];
 }

@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html lang="en-us">
+
+<head>
 
 	<meta charset="utf-8">
 	<title>Reporter - HTML Blog Template</title>
@@ -20,3 +32,18 @@
 
 	<!-- # Main Style Sheet -->
 	<link rel="stylesheet" href={{ URL::asset('theme/css/style.css') }}>
+    @include('site.layouts.header')
+
+</head>
+
+<body>
+
+    @yield('header')
+    @yield('content')
+    
+    @include('site.layouts.footer')
+
+
+</body>
+
+</html>
