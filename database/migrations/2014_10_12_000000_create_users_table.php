@@ -14,12 +14,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('user_name')->nullable();
+            $table->string('name')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('address')->nullable();
             $table->string('mobile')->nullable();
-            $table->string('role')->nullable();
+            $table->string('role')->default('composer')->nullable();      // admin - composer - visitor
             $table->string('status')->nullable();
             $table->boolean('is_confirmed')->default(0);
             $table->string('email')->unique();

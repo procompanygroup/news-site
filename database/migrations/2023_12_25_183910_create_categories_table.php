@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('category_name')->nullable();
             $table->text('category_description')->nullable();
+            $table->string('category_image')->nullable();
             $table->integer('create_user_id')->nullable();
             $table->integer('update_user_id')->nullable();
             $table->integer('parent_id')->nullable();

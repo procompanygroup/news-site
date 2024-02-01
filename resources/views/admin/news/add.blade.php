@@ -24,29 +24,7 @@
 						</div>
 					</div>
 					<div class="d-flex my-xl-auto right-content">
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-info btn-icon ml-2"><i class="mdi mdi-filter-variant"></i></button>
-						</div>
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-danger btn-icon ml-2"><i class="mdi mdi-star"></i></button>
-						</div>
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-warning  btn-icon ml-2"><i class="mdi mdi-refresh"></i></button>
-						</div>
-						<div class="mb-3 mb-xl-0">
-							<div class="btn-group dropdown">
-								<button type="button" class="btn btn-primary">14 Aug 2019</button>
-								<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuDate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="sr-only">Toggle Dropdown</span>
-								</button>
-								<div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuDate" data-x-placement="bottom-end">
-									<a class="dropdown-item" href="#">2015</a>
-									<a class="dropdown-item" href="#">2016</a>
-									<a class="dropdown-item" href="#">2017</a>
-									<a class="dropdown-item" href="#">2018</a>
-								</div>
-							</div>
-						</div>
+						<a href="{{ url('/cpanel/site') }}" type="button" class="btn btn-primary" style="color: white">الموقع العام</a>
 					</div>
 				</div>
 				<!-- breadcrumb -->
@@ -69,7 +47,7 @@
 						<div class="card">
 							<div class="card-body">
 			
-								<form action="{{ route('news.save') }}" method="post" enctype="multipart/form-data" autocomplete="off">
+								<form action="{{ url('cpanel/news/save') }}" method="post" enctype="multipart/form-data" autocomplete="off">
 									{{ csrf_field() }}
 			
 									<div class="row">
@@ -91,14 +69,6 @@
 										<div class="col">
 											<label for="exampleTextarea">المحتوى</label>
 											<textarea class="form-control" id="exampleTextarea" name="content" rows="3"></textarea>
-										</div>
-									</div><br>
-
-									<div class="row">
-										<div class="col">
-											<label for="inputName" class="control-label">اسم الكاتب </label>
-											<input type="text" class="form-control" id="inputName" name="composer_id"
-												title="يرجى إدخال اسم الكاتب " required>
 										</div>
 									</div><br>
 
@@ -124,6 +94,14 @@
 											</select>
 									</div><br>
 
+									<div class="row">
+										<div class="col">
+											<label for="exampleTextarea">صورة الخبر</label>
+											<input type="file" name="news_image" class="dropify" accept=".jpg, .png, image/jpeg, image/png"
+											data-height="70" />
+										</div>
+									</div><br>
+
 									<div class="form-group">
 										<label class="display-block">حالة الخبر</label> <br>
 										<div class="form-check form-check-inline">
@@ -138,8 +116,8 @@
 												&nbsp; غير فعال
 											</label>
 										</div>
-									</div>
-			
+									</div><br>
+
 									<div class="d-flex justify-content-center">
 										<button type="submit" class="btn btn-primary">حفظ البيانات</button>
 									</div>

@@ -8,6 +8,8 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\RateController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,19 +22,25 @@ use App\Http\Controllers\SiteController;
 |
 */
 
-Route::get('/', function () {
-   
-return view('welcome');
-})->name('home');
+// Route::get('/', function () { 
+//     return view('welcome');
+// })->name('home');
+
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
 
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
+Route::get('/', [SiteController::class, 'index'])->name('home');
 
 
-// Route::resource('/sites', SiteController::class);
-   Route::get('/site', [SiteController::class, 'index']);
+
+Route::get('/new', function () {
+    return view('site.news.new');
+});
 
 
 
@@ -46,11 +54,21 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// myprofile
+// Route::middleware(['auth', 'verified'])->group(function () {
+//     Route::get('/myprofile', [ProfileController::class, 'edit'])->name('myprofile.edit');
+//     Route::patch('/myprofile', [ProfileController::class, 'update'])->name('myprofile.update');
+//     Route::delete('/myprofile', [ProfileController::class, 'destroy'])->name('myprofile.destroy');
+// });
 
 // Admin Routes
 Route::middleware(['auth', 'verified', 'admin'])-> prefix('cpanel')->group(function () {
+
     // /cpanel
     Route::get('', [AdminController::class, 'index']);
+
+    // /site
+    Route::get('/site', [SiteController::class, 'index']);
 
         //   /user
         Route:: prefix('user')->group(function () {
@@ -90,10 +108,31 @@ Route::middleware(['auth', 'verified', 'admin'])-> prefix('cpanel')->group(funct
             Route::post('update/{id}', [NewsController::class, 'update'])->name('news.update');
 
             Route::delete('delete/{id}', [NewsController::class, 'destroy'])->name('news.delete');
+
+
+            
+            Route::get('comment', [CommentController::class, 'index']);
+
+            Route::get('addcomment', [CommentController::class, 'create']);
+            Route::post('savecomment', [CommentController::class, 'store'])->name('comment.save');
+
+            Route::get('editcomment/{id}', [CommentController::class, 'edit'])->name('comment.edit');
+            Route::post('updatecomment/{id}', [CommentController::class, 'update'])->name('comment.update');
+
+            Route::delete('deletecomment/{id}', [CommentController::class, 'destroy'])->name('comment.delete');
+
+            
+
+            // Route::get('rates', [RateController::class, 'index']);
+
+            // Route::get('like', [NewsController::class, 'newsList']);
+
+            // Route::post('like/{id}', [NewsController::class, 'like'])->name('news.like');
+            // Route::delete('like/{id}', [NewsController::class, 'unlike'])->name('news.unlike');
+
         });
         
         //   /tags
-
         Route:: prefix('tags')->group(function () {
          Route::get('show', [TagController::class, 'index']);
             Route::get('add', [TagController::class, 'create']);
@@ -108,21 +147,49 @@ Route::middleware(['auth', 'verified', 'admin'])-> prefix('cpanel')->group(funct
 });
 
 // Composer Routes
-Route::middleware(['auth', 'verified', 'composer'])->prefix('cpanel')->group(function () {
+Route::middleware(['auth', 'verified', 'composer'])->prefix('cpanelc')->group(function () {
 
-    // /cpanel
+    // /cpanelc
     Route::get('', [AdminController::class, 'index']);
 
-    Route:: prefix('news')->group(function () {
+    // /site
+    Route::get('/site', [SiteController::class, 'index']);
+
+    // /categoryc
+    // Route:: prefix('categoryc')->group(function () {
+    //     Route::get('show', [CategoryController::class, 'index']);
+    //     Route::get('add', [CategoryController::class, 'create']);
+    //     Route::post('save', [CategoryController::class, 'store'])->name('categoryc.save');
+
+    //     Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('categoryc.edit');
+    //     Route::post('update/{id}', [CategoryController::class, 'update'])->name('categoryc.update');
+
+    //     Route::delete('delete/{id}', [CategoryController::class, 'destroy'])->name('categoryc.delete');
+    // });
+
+    //   /newsc
+    Route:: prefix('newsc')->group(function () {
         Route::get('show', [NewsController::class, 'index']);
         Route::get('add', [NewsController::class, 'create']);
-        Route::post('save', [NewsController::class, 'store'])->name('news.save');
+        Route::post('save', [NewsController::class, 'store'])->name('newsc.save');
 
-        Route::get('edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
-        Route::post('update/{id}', [NewsController::class, 'update'])->name('news.update');
+        Route::get('edit/{id}', [NewsController::class, 'edit'])->name('newsc.edit');
+        Route::post('update/{id}', [NewsController::class, 'update'])->name('newsc.update');
 
-        Route::delete('delete/{id}', [NewsController::class, 'destroy'])->name('news.delete');
+        Route::delete('delete/{id}', [NewsController::class, 'destroy'])->name('newsc.delete');
     });
+
+    //   /tagsc
+//     Route:: prefix('tagsc')->group(function () {
+//         Route::get('show', [TagController::class, 'index']);
+//         Route::get('add', [TagController::class, 'create']);
+//         Route::post('save', [TagController::class, 'store'])->name('tagsc.save');
+   
+//         Route::get('edit/{id}', [TagController::class, 'edit'])->name('tagsc.edit');
+//         Route::post('update/{id}', [TagController::class, 'update'])->name('tagsc.update');
+   
+//         Route::delete('delete/{id}', [TagController::class, 'destroy'])->name('tagsc.delete');
+//    });
 
 });
 
@@ -131,6 +198,12 @@ Route::middleware(['auth', 'verified', 'visitor'])->prefix('site')->group(functi
 
     // /site
     Route::get('', [SiteController::class, 'index']);
+
+    Route::get('/new', function () {
+        return view('site.news.new');
+    });
+
+    // Route::post('/add_comment', [SiteController::class, 'add_comment']);
 
 });
 

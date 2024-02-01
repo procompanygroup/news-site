@@ -17,29 +17,7 @@
 						</div>
 					</div>
 					<div class="d-flex my-xl-auto right-content">
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-info btn-icon ml-2"><i class="mdi mdi-filter-variant"></i></button>
-						</div>
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-danger btn-icon ml-2"><i class="mdi mdi-star"></i></button>
-						</div>
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-warning  btn-icon ml-2"><i class="mdi mdi-refresh"></i></button>
-						</div>
-						<div class="mb-3 mb-xl-0">
-							<div class="btn-group dropdown">
-								<button type="button" class="btn btn-primary">14 Aug 2019</button>
-								<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuDate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="sr-only">Toggle Dropdown</span>
-								</button>
-								<div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuDate" data-x-placement="bottom-end">
-									<a class="dropdown-item" href="#">2015</a>
-									<a class="dropdown-item" href="#">2016</a>
-									<a class="dropdown-item" href="#">2017</a>
-									<a class="dropdown-item" href="#">2018</a>
-								</div>
-							</div>
-						</div>
+						<a href="{{ url('/cpanel/site') }}" type="button" class="btn btn-primary" style="color: white">الموقع العام</a>
 					</div>
 				</div>
 				<!-- breadcrumb -->
@@ -84,6 +62,7 @@
 												<th class="wd-15p border-bottom-0">اسم التصنيف</th>
 												<th class="wd-15p border-bottom-0">slug</th>
 												<th class="wd-20p border-bottom-0">الوصف</th>
+												<th class="wd-20p border-bottom-0">صورة التصنيف</th>
 												<th class="wd-15p border-bottom-0">التصنيف الأب</th>
 												<th class="wd-10p border-bottom-0">العمليات</th>
 											</tr>
@@ -96,6 +75,11 @@
 												<td>{{ $category->category_name }}</td>
 												<td>{{ $category->slug }}</td>
 												<td>{{ $category->category_description }}</td>
+												<td>{{ $category->category_image }}</td>
+												{{-- <td><a><img src="public/images/11.png" style="width: 50px;"></a></td> --}}
+
+												{{-- <td><a><img src="public/images/11.png" style="width: 200px; height: 90px;"></a></td> --}}
+
 												<td>{{ $category->parent_name }}</td>
 												<td>
 													<a class="btn btn-sm btn-info" href="{{ route('category.edit', $category->id) }}" title="تعديل"><i class="las la-pen"></i></a>
@@ -103,20 +87,6 @@
 													<a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
                                                 	data-id="{{ $category->id }}" data-category_name="{{ $category->category_name }}" data-toggle="modal"
                                                 	href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
-													
-													
-													{{-- <a href="{{route('category.edit', $category->id)}}"  class="btn btn-sm btn-info" title="تعديل"><i class="las la-pen"></i></a>
-
-													<form action="{{ route('category.delete', $category->id) }}" method="get">
-														@csrf
-													  	@method('delete')
-												   
-												   		<a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale" 
-												   		data-id="{{ $category->id }}" data-category_name="{{ $category->category_name }}" 
-												   		data-toggle="modal" href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
-												   	</form> --}}
-
-
 												</td> 
 												
 											</tr>
@@ -125,6 +95,12 @@
 									</table>
 								</div>
 							</div>
+
+							{{-- <div class="popup-image">
+								<span>&times;</span>
+								<img src="public/images/11.png" alt="">
+							</div> --}}
+
 						</div>
 					</div>
 					<!--/div-->
@@ -190,5 +166,19 @@
             modal.find('.modal-body #category_name').val(category_name);
         })
 </script>
+
+
+{{-- <script>
+	document.querySelectorAll('img').forEach(image => {
+		image.onclick = () => {
+			document.querySelector('.popup-image').style.display = 'block';
+			document.querySelector('.popup-image img').src = image.getAttribute('src');
+		}
+	});
+
+	document.querySelector('.popup-image span').onclick = () => {
+		document.querySelector('.popup-image').style.display = 'none';
+	}
+</script> --}}
 
 @endsection

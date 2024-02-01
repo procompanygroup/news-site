@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=Category::all();
+        $categories=Category::orderBy('id' ,'desc')->get();
         foreach($categories as  $category)
         {
             if($category->parent_id>0)
@@ -25,7 +25,13 @@ class CategoryController extends Controller
                 $category->parent_name = $parent->category_name;
             }
         }
-        return view('admin.category.show', compact('categories'));
+
+        if(auth()->user()->role == "admin"){
+            return view('admin.category.show', compact('categories'));
+        }
+        else if(auth()->user()->role == "composer"){
+            return view('composer.category.show', compact('categories'));
+        }
     }
 
     /**
@@ -34,7 +40,13 @@ class CategoryController extends Controller
     public function create(Request $request)
     {
         $parents=Category::all();
-        return view('admin.category.add', compact('parents'));
+
+        if(auth()->user()->role == "admin"){
+            return view('admin.category.add', compact('parents'));
+        }
+        else if(auth()->user()->role == "composer"){
+            return view('composer.category.add', compact('parents'));
+        }
     }
 
     /**
@@ -46,12 +58,21 @@ class CategoryController extends Controller
             'category_name' => 'required|unique:categories|max:255',
             'parent_id' => 'required',
             'category_description' => 'required',
+            'category_image' => 'image|required',
             'slug' => 'required',
         ]);
 
+        // store image
+        if($request->hasfile('category_image')){
+            $img = $request->file('category_image');
+            $img_name = $img->getClientOriginalName();
+            $img->move(public_path('images'), $img_name);
+        }
+     
         Category::create([
             'category_name'=>$request->category_name,
             'category_description'=>$request->category_description,
+            'category_image' => $request->category_image->getClientOriginalName(),
             'parent_id' => $request->parent_id,
             'slug'=>Str::slug($request->slug),
         ]);
@@ -77,7 +98,13 @@ class CategoryController extends Controller
     {
         $parents=Category::where('id', '!=', $id)->get();
         $category = Category::findorFail($id);
-        return view('admin.category.edit', compact('category', 'parents'));
+
+        if(auth()->user()->role == "admin"){
+            return view('admin.category.edit', compact('category', 'parents'));
+        }
+        else if(auth()->user()->role == "composer"){
+            return view('composer.category.edit', compact('category', 'parents'));
+        }
     }
 
     /**
@@ -89,6 +116,7 @@ class CategoryController extends Controller
         $category->update([
             'category_name'=>$request->category_name,
             'category_description'=>$request->category_description,
+            'category_image' => $request->category_image,
             'parent_id' => $request->parent_id,
             'slug'=>Str::slug($request->slug),
         ]);

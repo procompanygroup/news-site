@@ -25,10 +25,14 @@ class AdminController extends Controller
     // }
     public function index()
     {
-         
+        if(auth()->user()->role == "admin") {
             return view('admin.index');
+        }
+        else if(auth()->user()->role == "composer") {
+            return view('composer.index');
+        }
        
-     //   return view($id);
+    //   return view($id);
     }
 
     /**

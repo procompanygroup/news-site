@@ -23,8 +23,37 @@
 							</div>
 						</div>
 					</div>
+					<div class="d-flex my-xl-auto right-content">
+						<a href="{{ url('/cpanel/site') }}" type="button" class="btn btn-primary" style="color: white">الموقع العام</a>
+					</div>
 				</div>
 				<!-- breadcrumb -->
+
+
+				<style>
+					.custom-badge {
+					border-radius: 4px;
+					display: inline-block;
+					font-size: 12px;
+					min-width: 95px;
+					padding: 1px 10px;
+					text-align: center;
+				}
+					.status-red,
+					a.status-red {
+					background-color: #ffe5e6;
+					border: 1px solid #fe0000;
+					color: #fe0000;
+				  }
+				  .status-green,
+				  a.status-green {
+					background-color: #e5faf3;
+					border: 1px solid #00ce7c;
+					color: #00ce7c;
+				  }
+				</style>
+
+
 @endsection
 @section('content')
 				<!-- row opened -->
@@ -59,19 +88,25 @@
 											@foreach($users as $user)
 											<tr>
 												<td>{{$i++}}</td>
-												<td>{{$user->user_name}}</td>
+												<td>{{$user->name}}</td>
 												<td>{{$user->first_name}}</td>
 												<td>{{$user->last_name}}</td>
 												<td>{{$user->address}}</td>
 												<td>{{$user->mobile}}</td>
 												<td>{{$user->email }}</td>
 												<td>{{$user->role}}</td>
-												<td>{{$user->status}}</td>
+
+												@if($user->status)
+												<td><span class="custom-badge status-green">فعال</span></td>	
+												@else
+												<td><span class="custom-badge status-red">غير فعال</span></td>
+												@endif
+
 												<td>
 													<a class="btn btn-sm btn-info" href="{{ route('user.edit', $user->id) }}" title="تعديل"><i class="las la-pen"></i></a>
 
 													<a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                	data-id="{{ $user->id }}" data-title="{{ $user->user_name }}" data-toggle="modal"
+                                                	data-id="{{ $user->id }}" data-title="{{ $user->name }}" data-toggle="modal"
                                                 	href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
 												</td>
 											</tr>

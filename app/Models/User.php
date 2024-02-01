@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\CategoryUser;
 use App\Models\News;
 
+// use Rennokki\Likeable\Traits\Likeable;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -22,7 +24,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_name', 'first_name', 'last_name', 'address',
+        'name', 'first_name', 'last_name', 'address',
         'email', 'mobile', 'role', 'status', 'is_confirmed',
         'password', 'email_verified_at', 
     ];
@@ -55,7 +57,16 @@ class User extends Authenticatable
 
     public function news(): HasMany
     {
-        return $this->hasMany(News::class);
+        return $this->hasMany(News::class, 'composer_id');
     }
+
+
+
+    // protected function role(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn ($value) => ["admin", "composer", "visitor"][$value],
+    //     );
+    // }
 
 }

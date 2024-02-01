@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->text('content')->nullable();
-            $table->integer('composer_id')->nullable();
+            $table->string('news_image')->nullable();
+            $table->foreignId('composer_id')->constrained('users')->nullable();
             $table->foreignId('category_id')->nullable();
             $table->string('status')->nullable();
             $table->foreignId('media_id')->nullable();

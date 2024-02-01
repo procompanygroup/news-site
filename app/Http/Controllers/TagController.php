@@ -16,8 +16,14 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags=Tags::all();
-        return view('admin.tags.show', compact('tags'));
+        $tags=Tags::orderBy('id' ,'desc')->get();
+
+        if(auth()->user()->role == "admin"){
+            return view('admin.tags.show', compact('tags'));
+        }
+        else if(auth()->user()->role == "composer"){
+            return view('composer.tags.show', compact('tags'));
+        }
     }
 
     /**
@@ -25,9 +31,13 @@ class TagController extends Controller
      */
     public function create()
     {
+        if(auth()->user()->role == "admin"){
         return view('admin.tags.add');
+        }
+        else if(auth()->user()->role == "composer"){
+            return view('composer.tags.add');
+        }
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -63,7 +73,13 @@ class TagController extends Controller
     public function edit($id)
     {
         $tag = Tags::findOrFail($id);
+
+        if(auth()->user()->role == "admin"){
         return view('admin.tags.edit', compact('tag'));
+        }
+        else if(auth()->user()->role == "composer"){
+            return view('composer.tags.edit', compact('tag'));
+        }
     }
 
     /**

@@ -21,29 +21,22 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news=News::all();
-        $tags=Tags::all();
+        $news=News::orderBy('id' ,'desc')->get();
+        $tags=Tags::orderBy('id' ,'desc')->get();
 
-        // $composers = News::with('users')->get();
-        // return $composers;
-        // foreach($composers as $composer ){
-        //     $c=$composer["users.user_name"];
-        // }
-
-
-        $composers = DB::table('news')
-            ->join('categories', 'categories.id', 'news.category_id')
-            ->join('users', 'users.id', 'news.composer_id')
-            ->select('news.title', 'news.content', 'news.status', 'news.slug', 'categories.category_name', 'users.user_name')
-            ->get('news.title', 'news.content', 'news.status', 'news.slug', 'categories.category_name', 'users.user_name');
-
-            // $data['composer_id'] = auth()->users()->id;
-            // $name = User::where('id', $data)->get('user_name');
-            
-            // $cat_data['category_id'] = categories()->id;
-            // $cat_name = Category::where('id', $cat_data)->get('category_name');
-
-        return view('admin.news.show', compact('news', 'tags', 'composers'));
+        // for show tag_name in blade using pivot table---->news_tags
+        $results = DB::table('news_tags')
+        ->join('news', 'news.id', 'news_tags.news_id')
+        ->join('tags', 'tags.id', 'news_tags.tag_id')
+        ->select('tags.tag_name')
+        ->get()->pluck('tag_name');
+ 
+        if(auth()->user()->role == "admin"){
+            return view('admin.news.show', compact('news', 'tags', 'results'));
+        }
+        else if(auth()->user()->role == "composer"){
+            return view('composer.news.show', compact('news', 'tags', 'results'));
+        }
     }
 
     /**
@@ -54,7 +47,12 @@ class NewsController extends Controller
         $categories=Category::all();
         $tags=Tags::all();
 
-        return view('admin.news.add', compact('categories', 'tags'));
+        if(auth()->user()->role == "admin"){
+            return view('admin.news.add', compact('categories', 'tags'));
+        }
+        else if(auth()->user()->role == "composer"){
+            return view('composer.news.add', compact('categories', 'tags'));
+        }
     }
 
     /**
@@ -66,16 +64,25 @@ class NewsController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|unique:news|max:255',
             'content' => 'required',
+            'news_image' => 'image|required',
             'composer_id' => 'required',
             'category_id' => 'required',
             'status' => 'required',
             'slug' => 'required',
         ]);
 
+        // store image
+        if($request->hasfile('news_image')){
+            $img = $request->file('news_image');
+            $img_name = $img->getClientOriginalName();
+            $img->move(public_path('images'), $img_name);
+        }
+
         News::create([
             'title'=>$request->title,
             'content'=>$request->content,
-            'composer_id'=>$request->composer_id,
+            'news_image' => $request->news_image->getClientOriginalName(),
+            'composer_id'=>auth()->id(),
             'category_id'=>$request->category_id,
             'status'=>$request->status,
             'slug'=>Str::slug($request->slug),
@@ -110,7 +117,13 @@ class NewsController extends Controller
         $categories=Category::all();
         $tags=Tags::all();
         $new = News::findOrFail($id);
-        return view('admin.news.edit', compact('new', 'categories', 'tags'));
+
+        if(auth()->user()->role == "admin"){
+            return view('admin.news.edit', compact('new', 'categories', 'tags'));
+        }
+        else if(auth()->user()->role == "composer"){
+            return view('composer.news.edit', compact('new', 'categories', 'tags'));
+        }
     }
 
     /**
@@ -123,7 +136,8 @@ class NewsController extends Controller
         $new->update([
             'title'=>$request->title,
             'content'=>$request->content,
-            'composer_id'=>$request->composer_id,
+            'news_image' => $request->news_image,
+            // 'composer_id'=>$request->composer_id,
             'category_id'=>$request->category_id,
             'status'=>$request->status,
             'slug'=>Str::slug($request->slug),
@@ -142,4 +156,31 @@ class NewsController extends Controller
         session()->flash('delete', 'تم حذف التصنيف بنجاح');
         return back();
     }
+
+
+
+    // public function newsList()
+    // {
+    //     $news = News::all();
+
+    //     return view('admin.news.likes',compact('news'));
+    // }
+
+
+
+    // public function like(News $new)
+    // {
+    //     $new->toggleLike();
+    
+    //     return back();
+    // }
+    
+    // public function unlike(News $new)
+    // {
+    //     $new->toggleLike();
+
+    //     return back();
+    // }
+
+
 }

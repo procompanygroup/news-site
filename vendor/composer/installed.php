@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'd2892174b7c7c896c67022771c64d7e7fcc3051e',
+        'reference' => '5e6b850cb1ad08d680af8fa95c760ac919608d93',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -409,7 +409,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'd2892174b7c7c896c67022771c64d7e7fcc3051e',
+            'reference' => '5e6b850cb1ad08d680af8fa95c760ac919608d93',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -853,6 +853,15 @@
             'replaced' => array(
                 0 => '4.7.5',
             ),
+        ),
+        'rtconner/laravel-likeable' => array(
+            'pretty_version' => '3.2.0',
+            'version' => '3.2.0.0',
+            'reference' => 'c5076ecaf0f9693ad2fcf04110163f65dc308541',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../rtconner/laravel-likeable',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'sebastian/cli-parser' => array(
             'pretty_version' => '2.0.0',

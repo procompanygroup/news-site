@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\News;
+use App\Models\Comment;
 
 class SiteController extends Controller
 {
@@ -13,8 +16,8 @@ class SiteController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        $news = News::all();
+        $categories = Category::orderBy('id' ,'desc')->get();
+        $news = News::orderBy('id' ,'desc')->get();
         $count = News::count();
         return view('site.home', compact('categories', 'news', 'count'));
     }
@@ -66,4 +69,19 @@ class SiteController extends Controller
     {
         //
     }
+
+    // public function add_comment(Request $request)
+    // {
+    //     if(Auth::id()){
+    //         $comment = new Comment();
+    //         $comment->user_id = Auth::user()->id;
+    //         $comment->content = $request->content;
+    //         $comment->save();
+            
+    //         return redirect()->back();
+    //     }
+    //     else{
+    //         return redirect('login');
+    //     }
+    // }
 }

@@ -12,32 +12,34 @@
 						</div>
 					</div>
 					<div class="d-flex my-xl-auto right-content">
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-info btn-icon ml-2"><i class="mdi mdi-filter-variant"></i></button>
-						</div>
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-danger btn-icon ml-2"><i class="mdi mdi-star"></i></button>
-						</div>
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-warning  btn-icon ml-2"><i class="mdi mdi-refresh"></i></button>
-						</div>
-						<div class="mb-3 mb-xl-0">
-							<div class="btn-group dropdown">
-								<button type="button" class="btn btn-primary">14 Aug 2019</button>
-								<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuDate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="sr-only">Toggle Dropdown</span>
-								</button>
-								<div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuDate" data-x-placement="bottom-end">
-									<a class="dropdown-item" href="#">2015</a>
-									<a class="dropdown-item" href="#">2016</a>
-									<a class="dropdown-item" href="#">2017</a>
-									<a class="dropdown-item" href="#">2018</a>
-								</div>
-							</div>
-						</div>
+						<a href="{{ url('/cpanel/site') }}" type="button" class="btn btn-primary" style="color: white">الموقع العام</a>
 					</div>
 				</div>
 				<!-- breadcrumb -->
+
+				<style>
+					.custom-badge {
+					border-radius: 4px;
+					display: inline-block;
+					font-size: 12px;
+					min-width: 95px;
+					padding: 1px 10px;
+					text-align: center;
+				}
+					.status-red,
+					a.status-red {
+					background-color: #ffe5e6;
+					border: 1px solid #fe0000;
+					color: #fe0000;
+				  }
+				  .status-green,
+				  a.status-green {
+					background-color: #e5faf3;
+					border: 1px solid #00ce7c;
+					color: #00ce7c;
+				  }
+				</style>
+
 @endsection
 
 @section('content')
@@ -60,10 +62,12 @@
 												<th class="wd-15p border-bottom-0">عنوان الخبر</th>
 												<th class="wd-15p border-bottom-0">slug</th>
 												<th class="wd-15p border-bottom-0">المحتوى</th>
+												<th class="wd-20p border-bottom-0">صورة الخبر</th>
 												<th class="wd-15p border-bottom-0"> الكاتب</th>
 												<th class="wd-15p border-bottom-0"> التصنيف</th>
 												<th class="wd-15p border-bottom-0"> الوسوم</th>
 												<th class="wd-15p border-bottom-0">الحالة</th>
+												<th class="wd-15p border-bottom-0">العمليات</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -74,10 +78,22 @@
 												<td>{{$new->title}}</td>
 												<td>{{$new->slug}}</td>
 												<td>{{$new->content}}</td>
-												<td>{{$new->user_name}}</td>
-												<td>{{$new->category_name}}</td>
-												<td>{{$new->tag_id}}</td>
-												<td>{{$new->status}}</td>
+												<td>{{$new->news_image}}</td>
+												<td>{{ App\Models\User::find($new->composer_id)->name }}</td>
+												<td>{{ App\Models\Category::find($new->category_id)->category_name }}</td>
+											
+												<td>
+													@foreach($results as $result)
+													{{ $result }}
+													@endforeach
+												</td>
+
+												@if($new->status)
+												<td><span class="custom-badge status-green">فعال</span></td>	
+												@else
+												<td><span class="custom-badge status-red">غير فعال</span></td>
+												@endif
+
 												<td>
 													<a class="btn btn-sm btn-info" href="{{ route('news.edit', $new->id) }}" title="تعديل"><i class="las la-pen"></i></a>
 
@@ -106,8 +122,9 @@
 				<h6 class="modal-title">حذف الخبر</h6><button aria-label="Close" class="close" data-dismiss="modal"
 					type="button"><span aria-hidden="true">&times;</span></button>
 			</div>
-			<form action={{ route('news.delete', $new->id) }} method="post">
+			<form action={{ url('cpanel/news/delete', $new->id) }} method="post">
 				{{method_field('delete')}}
+				{{-- @method('delete') --}}
 				{{csrf_field()}}
 				<div class="modal-body">
 					<p>هل أنت متأكد من عملية الحذف؟</p><br>
@@ -118,8 +135,8 @@
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
 					<button type="submit" class="btn btn-danger">تأكيد</button>
 				</div>
+			</form>
 		</div>
-		</form>
 	</div>
 </div>
 

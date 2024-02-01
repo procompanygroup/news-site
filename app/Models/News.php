@@ -8,7 +8,10 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\belongsToMany;
+
+// use Rennokki\Likeable\Contracts\Likeable as LikeableContract;
+// use Rtconner\LaravelLikeable\Traits\Likeable;
 
 class News extends Model
 {
@@ -16,7 +19,7 @@ class News extends Model
 
     protected $news = 'composer_name';
 
-    protected $fillable = ['title', 'content', 'composer_id', 'category_id', 'status', 'media_id', 'slug'];
+    protected $fillable = ['title', 'content', 'news_image', 'composer_id', 'category_id', 'status', 'media_id', 'slug'];
 
 
     public function category_news(): HasMany
@@ -24,9 +27,9 @@ class News extends Model
         return $this->hasMany(CategoryNews::class);
     }
 
-    public function news_tags(): HasMany
+    public function new_tag(): belongsToMany
     {
-        return $this->hasMany(NewsTags::class);
+        return $this->belongsToMany(NewsTags::class);
     }
 
  
@@ -39,5 +42,28 @@ class News extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+
+
+    // public function getLikesCountAttribute()
+    // {
+    //     return $this->likes()->count();
+    // }
+    
+    // public function getLikedAttribute()
+    // {
+    //     return $this->isLikedBy(auth()->user());
+    // }
+    
+    // public function toggleLike()
+    // {
+    //     if ($this->isLikedBy(auth()->user())) {
+    //         $this->unlike();
+    //     } else {
+    //         $this->like();
+    //     }
+    // }
+    
+
 
 }

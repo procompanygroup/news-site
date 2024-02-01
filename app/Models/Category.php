@@ -29,7 +29,7 @@ class Category extends Model
  
     protected $categories = 'parent_name';
 
-    protected $fillable = ['category_name', 'category_description', 'create_user_id', 'update_user_id', 'parent_id', 'media_id', 'slug'];
+    protected $fillable = ['category_name', 'category_description', 'category_image', 'create_user_id', 'update_user_id', 'parent_id', 'media_id', 'slug'];
 
 
     public function category_news(): HasMany

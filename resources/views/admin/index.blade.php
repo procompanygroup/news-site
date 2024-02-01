@@ -10,7 +10,7 @@
 						</div>
 					</div>
 					<div class="d-flex my-xl-auto right-content">
-								<a href="{{ url('sites') }}" type="button" class="btn btn-primary" style="color: white">الموقع العام</a>
+								<a href="{{ url('/cpanel/site') }}" type="button" class="btn btn-primary" style="color: white">الموقع العام</a>
 					</div>
 				</div>
 				<!-- breadcrumb -->

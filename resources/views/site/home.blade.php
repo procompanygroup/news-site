@@ -14,9 +14,42 @@
             data-target="#navigation"> <span class="navbar-toggler-icon"></span>
           </button>
         </div>
+
+        @if (auth()->user())
+        
+            <div class="row search order-lg-3 order-md-2 order-3 ml-auto">      
+
+              @if(auth()->user()->role == "admin")
+                <div class="content"> <a class="read-more-btn" style="font-size: 20px;" href="{{ url('cpanel') }}">Dashboard</a></div>                  
+              
+              @elseif (auth()->user()->role == "composer")
+                <div class="content"> <a class="read-more-btn" style="font-size: 20px;" href="{{ url('cpanelc') }}">Dashboard</a></div>                  
+              
+              @endif
+              &nbsp; &nbsp;
+              
+              <div class="content"> <a class="read-more-btn" style="font-size: 20px;" href="{{ route('profile.edit') }}">Profile</a></div>                  
+              &nbsp; &nbsp;
+
+                <form method="POST" action="{{ route('logout') }}">
+                  @csrf
+                  <button style="background: none; border: none; font-weight: bold;" type="submit"> Logout</button>
+                </form>
+              
+            </div>
+
+        @else
+
         <form action="#!" class="search order-lg-3 order-md-2 order-3 ml-auto">
-          <input id="search-query" name="s" type="search" placeholder="Search..." autocomplete="off">
-        </form>
+          <div class="row">      
+            <div class="content"> <a class="read-more-btn" style="font-size: 20px;" href="{{ route('login') }}">Login</a></div>                  
+              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <div class="content"> <a class="read-more-btn" style="font-size: 20px;" href="{{ route('register') }}">SignUp</a></div>                  
+          </div>
+      </form>
+
+        @endif
+
         <div class="collapse navbar-collapse text-center order-lg-2 order-4" id="navigation">
           <ul class="navbar-nav mx-auto mt-3 mt-lg-0">
             <li class="nav-item"> <a class="nav-link" href="about.html">About Me</a>
@@ -67,17 +100,15 @@
                   </a>
                   <div class="card-body px-0 pb-0">
                     <ul class="post-meta mb-2">
-                      <li> <a href="#!">travel</a>
-                      </li>
+                      <li style="color: #13AE6F;">{{ App\Models\Category::find($new->category_id)->category_name }}</li>
                     </ul>
-                    <h2><a class="post-title" href="article.html">{{ $new->title }}</a></h2>
-                    <p class="card-text">{{ $new->content }}</p>
-                    <div class="content"> <a class="read-more-btn" href="article.html">Read Full Article</a>
-                    </div>
+                    <h2>{{ $new->title }}</h2>
+                    {{-- <p class="card-text">{{ $new->content }}</p> --}}
+                    <div class="content"> <a class="read-more-btn" href="{{ url('new') }}">Read Full Article</a> </div>  
                   </div>
                 </article>
               </div>
-          
+
               @endforeach
             
               

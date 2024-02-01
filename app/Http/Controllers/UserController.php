@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users=User::all();
+        $users=User::orderBy('id' ,'desc')->get();
         return view('admin.user.show', compact('users'));
     }
 
@@ -33,7 +33,7 @@ class UserController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'user_name' => 'required',
+            'name' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
             'address' => 'required',
@@ -45,7 +45,7 @@ class UserController extends Controller
         ]);
 
         User::create([
-            'user_name'=>$request->user_name,
+            'name'=>$request->name,
             'first_name'=>$request->first_name,
             'last_name'=>$request->last_name,
             'address'=>$request->address,
@@ -86,7 +86,7 @@ class UserController extends Controller
     {
         $user = User::findorFail($id);
         $user->update([
-            'user_name'=>$request->user_name,
+            'name'=>$request->name,
             'first_name'=>$request->first_name,
             'last_name'=>$request->last_name,
             'address'=>$request->address,
